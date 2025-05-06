@@ -1,0 +1,1 @@
+# Rust + HTMX chat interface that talks to the Raspberry Pi's Qwen3 API via Tailscale
