@@ -19,6 +19,31 @@
         function (import nixpkgs {
           inherit system;
         }));
+    
+    llamaPoetry = pkgs:
+      let
+        poetry-with-overrides = import ./overrides.nix { inherit pkgs; };
+      in
+        poetry-with-overrides.pkgs.buildPythonPackage {
+          pname = "llama-cpp-tools";
+          version = "unstable";
+          format = "pyproject";
+          src = llama-cpp-src;
+
+          nativeBuildInputs = with poetry-with-overrides.pkgs; [
+            poetry-core
+          ];
+
+          propagatedBuildInputs = with poetry-with-overrides.pkgs; [
+            torch
+            transformers
+            sentencepiece
+            huggingface-hub
+            numpy
+            protobuf
+          ];
+        };
+
   in {
     packages = forAllSystems (pkgs: {
       llama-cpp = pkgs.callPackage ./package.nix {
@@ -30,11 +55,7 @@
       default = pkgs.mkShell {
         buildInputs = with pkgs; [
           python311
-          python311Packages.pip
-          python311Packages.setuptools
-          python311Packages.transformers
-          python311Packages.sentencepiece
-          python311Packages.huggingface-hub
+          (llamaPoetry pkgs)
           git
           cmake
         ];
