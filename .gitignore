@@ -1,5 +1,5 @@
 # Nix build artifacts
-result/
+*result/
 *.drv
 *.out
 *.tmp
