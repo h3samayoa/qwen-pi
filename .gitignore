@@ -1,0 +1,22 @@
+# Nix build artifacts
+result/
+*.drv
+*.out
+*.tmp
+.nix-channels
+.nix-defexpr
+
+# Models and output
+models/
+qwen3_model/
+*.gguf
+
+# Editor & OS clutter
+.vscode/
+.idea/
+.DS_Store
+
+# Logs and misc
+*.log
+*.swp
+*.bak
