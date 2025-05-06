@@ -21,7 +21,7 @@
         }));
   in {
     packages = forAllSystems (pkgs: {
-      llama-cpp = pkgs.callPackage "${self}/package.nix" {
+      llama-cpp = pkgs.callPackage ./package.nix {
         src = llama-cpp-src;
       };
     });
