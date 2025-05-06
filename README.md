@@ -18,3 +18,4 @@
 - [ ] Deploy frontend via Fly.io or Nix container
 - [ ] Connect frontend to FastAPI through Tailscale
 - [ ] Optimize prompts and token limits
+- [ ] Add basic error handling and logs to API
