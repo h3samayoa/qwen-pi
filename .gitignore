@@ -1,10 +1,12 @@
 # Nix build artifacts
 *result/
+*result
 *.drv
 *.out
 *.tmp
 .nix-channels
 .nix-defexpr
+*model/
 
 # Models and output
 models/
