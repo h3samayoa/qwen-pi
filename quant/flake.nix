@@ -1,7 +1,12 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  outputs = inputs @ { self, nixpkgs, ... }: let
+  inputs.llama-cpp-src = {
+    url = "github:ggml-org/llama.cpp/141a908a59bbc68ceae3bf090b850e33322a2ca9";
+    flake = false;
+  };
+
+  outputs = inputs @ { self, nixpkgs, llama-cpp-src, ... }: let
 
     forAllSystems = function:
       nixpkgs.lib.genAttrs [
@@ -15,21 +20,26 @@
         }));
   in {
     packages = forAllSystems (pkgs: {
-      default = pkgs.llama-cpp;
+      default = (pkgs.callPackage ./packages.nix {
+        llama-cpp-src = inputs.llama-cpp-src;
+      }).llama-repo;
     });
 
     devShells = forAllSystems (pkgs: {
       default = pkgs.mkShell {
+        #inputsFrom = [ self.packages.${pkgs.system}.llama-cpp ];
+
         buildInputs = with pkgs; [
-          llama-cpp
-          git
-          cmake
-          python311
-          python311Packages.transformers
-          python311Packages.sentencepiece
-          python311Packages.huggingface-hub
-          python311Packages.torch
-          python311Packages.gguf
+          (python311.withPackages (ps: with ps; [
+            pip
+            setuptools
+            sentencepiece
+            protobuf
+            transformers
+            huggingface-hub
+            torch
+            gguf
+          ]))
         ];
       };
     });
