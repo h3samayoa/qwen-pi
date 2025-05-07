@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "llama-cpp-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1746522726,
-        "narHash": "sha256-QTik7ATqWphF/WdTcje6YGcLR52RJJFLmtSqFwxG6NI=",
-        "owner": "ggerganov",
-        "repo": "llama.cpp",
-        "rev": "764b85627b46f43d7ea801867cd1b6abef484574",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ggerganov",
-        "repo": "llama.cpp",
-        "rev": "764b85627b46f43d7ea801867cd1b6abef484574",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1746328495,
@@ -35,7 +18,6 @@
     },
     "root": {
       "inputs": {
-        "llama-cpp-src": "llama-cpp-src",
         "nixpkgs": "nixpkgs"
       }
     }
