@@ -9,8 +9,8 @@
 
     nativeBuildInputs = with pkgs; [ 
       cmake git curl 
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ]
-      ++ lib.optionals stdenv.isLinux [ patchelf ];
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
+      #++ lib.optionals stdenv.isLinux [ patchelf ]; todo ! add build script 
 
     dontUseCmakeConfigure = true;
     configurePhase = "echo skip"; # Nix expects a configurePhase to exist
@@ -23,22 +23,8 @@
     installPhase = ''
       mkdir -p $out
       cp -r . $out/
-      
-      for i in $out/bin/* do
-        fileType=`file -b "$i"`
 
-        case "$fileType" in
-          *Mach-O*)
-            install_name_tool -add_rpath "@executable_path" "$i"
-            ;;
-          *ELF*)
-            patchelf --set-rpath "\$ORIGIN" "$i"
-            ;;
-          *)
-            echo "skipping: "$i"
-            ;;
-        esac
-      done
+      install_name_tool -add_rpath "@executable_path" $out/build/bin/llama-quantize
     '';
   };
 }

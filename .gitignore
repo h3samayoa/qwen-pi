@@ -7,7 +7,8 @@
 .nix-channels
 .nix-defexpr
 *model/
-*llama*
+*llama*/
+*.txt
 
 # Models and output
 models/
