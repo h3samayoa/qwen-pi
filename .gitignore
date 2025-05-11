@@ -8,12 +8,13 @@
 .nix-defexpr
 *model/
 *llama*/
-*.txt
 
 # Models and output
 models/
 qwen3_model/
 *.gguf
+*.txt
+*.dat
 
 # Editor & OS clutter
 .vscode/
