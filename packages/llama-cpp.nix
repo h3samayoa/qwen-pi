@@ -15,8 +15,8 @@ pkgs.stdenv.mkDerivation {
     cmake 
     git 
     curl 
-  ]; #++ lib.optionals stdenv.isDarwin [ darwin.cctools ]
-  #   ++ lib.optionals stdenv.isLinux [ patchelf ]; 
+  ]; ++ lib.optionals stdenv.isDarwin [ darwin.cctools ]
+    ++ lib.optionals stdenv.isLinux [ patchelf ]; 
 
   #dontUseCmakeConfigure = true;
   configurePhase = "echo skip";
