@@ -32,7 +32,7 @@
       };
     in
     {
-      nixosConfigurations.raspberryPi5AP = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.rpi5ap = nixpkgs.lib.nixosSystem {
         system = rpiSystem;
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-5
@@ -43,6 +43,8 @@
           ./pi5/ap.nix
           ./pi5/tailscale.nix
           ./pi5/secrets.nix
+
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
 
           # rpi5 configuration and packages 
           ({ pkgs, ... }: {
@@ -60,6 +62,8 @@
           })
         ];
       };
+
+      packages.${rpiSystem}.sd-image-rpi5 = self.nixosConfigurations.rpi5ap.config.system.build.sdImage;
 
       formatter = forAllSystems (pkgs: pkgs.nixpkgs-fmt);
 

@@ -1,4 +1,3 @@
-# nixos-modules/common.nix
 { config, pkgs, lib, ... }:
 
 let
@@ -44,4 +43,7 @@ in
 
   # hard link identical files 
   nix.settings.auto-optimise-store = true;
+
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  #boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
 }
